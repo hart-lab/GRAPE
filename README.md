@@ -15,6 +15,11 @@ Software dependencies:
 
 1. Clone the repository into a directory on your computer and `cd` into the root directory of the `GRAPE` package.
 
+```zsh
+git clone https://github.com/yourusername/GRAPE.git
+cd GRAPE
+```
+
 2. Optional but recommended, create and start a virtual environment for the tool with:
 
 ```zsh
@@ -59,3 +64,25 @@ grape \
   -t path/to/target_gene_list.txt \
   --target-columns T18_R1 T18_R2 T18_R3
 ```
+### Required Arguments
+| Argument                   | Description                                                   |
+| -------------------------- | ------------------------------------------------------------- |
+| `-i`, `--input-filepath`   | Input read count file                                         |
+| `-o`, `--output-directory` | Output directory path                                         |
+| `-c`, `--control-columns`  | Space-separated list of control columns (e.g., T0 replicates) |
+| `-t`, `--target-gene-file` | Path to target gene list file (excluding control genes)       |
+
+### Optional Arguments
+| Argument                   | Description                                          | Default |
+| -------------------------- | ---------------------------------------------------- |:-------:|
+| `--min-reads`              | Minimum read count threshold                         | `0` |
+| `--pseudocount`            | Pseudocount to avoid division by zero                | `1` |
+| `--target-columns`         | Space-separated list of target columns to average    | `None` |
+| `--no-mean-replicates`     | Disable averaging across replicates                  | `False` |
+| `--no-groupby-targets`     | Disable grouping by target gene                      | `False` |
+| `--nonessential-gene-file` | Path to nonessential/reference gene list for mode-centering. If not provided, mode-centering is performed using the full fold-change distribution. | `None` |
+| `--query-gene-file`        | Path to query gene list                              | `None` |
+| `--genepair-del`           | Delimiter for gene pairs                             | `"_"` |
+| `--fit-intercept`          | Fit intercept in regression       |`False`|
+| `--half-window-size`       | Half window size for local variance  |`500`|
+| `--monotone-filter`        | Apply monotonic filter to local std deviations       |`False`|

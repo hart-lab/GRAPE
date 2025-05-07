@@ -125,8 +125,8 @@ def mode_center(mean_fc_df: pd.DataFrame) -> pd.DataFrame:
 
 	return mean_fc_df
 
-def mode_center_vs_reference_genes(mean_fc_df: pd.DataFrame, 
-								   noness_genes: List[str]) -> pd.DataFrame:
+def mode_center_vs_reference_genes(mean_fc_df: pd.DataFrame, noness_genes: List[str]) \
+	-> pd.DataFrame:
 	"""
 	Assumes a polished fold change df where the index is the target gene(s). Normalize fold-change 
 	values using the median of a reference set of non-essential genes.

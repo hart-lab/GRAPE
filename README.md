@@ -137,6 +137,6 @@ Contains regression outputs for **single-gene effects**.
 - fc_exp: expected fold change predicted by the regression model for the gene. (single-gene coefficient beta)
 
 ### 3. `modecenter_meanfc_<prefix>.txt`
-Contains the **mode-centered mean fold-change values** used as input to regression.  
+Contains the **mode-centered mean fold-change values** used as input for regression analysis.  
 - GENE: all genes and gene pairs.  
 - meanFC: gene-level fold-change, averaged across all replicates. This value is mode-centered based on the method specified by the user. By default, the mode is calculated from the full FC distribution. If a `--nonessential-gene-file` is provided, the mode is calculated from the fold-change distribution of non-essential genes.

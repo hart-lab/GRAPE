@@ -16,7 +16,7 @@ Software dependencies:
 1. Clone the repository into a directory on your computer and `cd` into the root directory of the `GRAPE` package.
 
 ```zsh
-git clone https://github.com/yourusername/GRAPE.git
+git clone https://github.com/hart-lab/GRAPE.git
 cd GRAPE
 ```
 

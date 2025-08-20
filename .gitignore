@@ -7,4 +7,5 @@
 
 # ignore build info
 .venv
+grenv
 GRAPE.egg-info

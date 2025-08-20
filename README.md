@@ -50,7 +50,7 @@ options:
   --version             print version and exit
   ```
 
-## Quick Usage Example
+## Usage Example
 ```zsh
 grape \
   -i path/to/read_count_file.csv \
@@ -110,3 +110,33 @@ A plain text file with **one gene per line**, listing the target genes to includ
 | `--half-window-size`       | Half window size for local variance, If set to 0, a global variance is calculated instead of a local one. The half-window size must NOT exceed the total number of pairwise constructs. |`500`|
 | `--monotone-filter`        | Apply monotonic filter to local std deviations       |`False`|
 
+
+## Output Files 
+After a successful run, GRAPE produces the following files in the specified output directory (with the user-defined prefix `-p` if provided):
+
+### 1. `grape_pairs_<prefix>.txt`
+Contains regression results and genetic interaction (GI) Z-scores for gene pairs.  
+- GENE_PAIR: gene pair names.  
+- fc_obs: observed mode-centered fold change for the gene pair. 
+- fc_exp: expected fold change predicted by the regression model for the gene pair  (sum of single-gene coefficients for gene1 and gene2).
+- GI_raw: unnormalized GI score, computed as `fc_obs – fc_exp`.
+- g1_fc: single-gene fold change for the first gene in the pair.
+- g2_fc: single-gene fold change for the second gene in the pair.
+- dLFC: observed pairwise fold change – (observed fold change of gene1 + gene2).
+- local_std: local standard deviation estimated from a sliding window.
+- GI_Zscore: normalized genetic interaction score; negative values indicate synthetic genetic interactions, positive values indicate suppressing interactions.
+- Pval_synth: p-value for detecting synthetic (negative) interactions.
+- Padj_synth: Benjamini–Hochberg adjusted p-value for synthetic interactions.
+- Pval_supp: p-value for detecting suppressor (positive) interactions.
+- Padj_supp: Benjamini–Hochberg adjusted p-value for suppressor interactions.
+
+### 2. `grape_singles_<prefix>.txt`
+Contains regression outputs for **single-gene effects**.  
+- index: single gene names.  
+- fc_obs: observed mode-centered fold change for the gene.
+- fc_exp: expected fold change predicted by the regression model for the gene. (single-gene coefficient beta)
+
+### 3. `modecenter_meanfc_<prefix>.txt`
+Contains the **mode-centered mean fold-change values** used as input to regression.  
+- GENE: all genes and gene pairs.  
+- meanFC: gene-level fold-change, averaged across all replicates. This value is mode-centered based on the method specified by the user. By default, the mode is calculated from the full FC distribution. If a `--nonessential-gene-file` is provided, the mode is calculated from the fold-change distribution of non-essential genes.

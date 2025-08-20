@@ -55,23 +55,23 @@ options:
 grape \
   -i path/to/read_count_file.csv \
   -o output_directory/ \
-  -c T0_R1 T0_R2 T0_R3 \
+  -c T0_R1 T0_R2 \
   -t path/to/target_gene_list.txt \
-  --target-columns T18_R1 T18_R2 T18_R3 \
+  --target-columns T18_R1 T18_R2 \
   -p T18
 ```
 ## Input File Formats
 ### 1. Read Count file
 The read count file is a **tab-delimited text file** containing raw counts for each gRNA across all replicates.
 - **gRNA**: unique gRNA identifier (often `GENE1_guideindex, GENE2_guideindex, GENE1_GENE2_guideindex`).  
-- **GENE**: target genes and gene pairs for the gRNA. Dual-gene constructs are joined with `--genepair-del` default is `_`.  
+- **GENE**: target genes and gene pairs for the gRNA. Dual-gene constructs are joined using the delimiter specified by `--genepair-del` (default is `_`).  
 - **Sample columns**: read counts for control and experimental replicates (column names must match arguments passed with `-c` and `--target-columns`).  
 
 **Example:**
 | gRNA          | GENE         | T0_R1 |T0_R2 |T18_R1|T18_R2|
 | ------------- | ------------ | -----:| ----:| ----:| ----:|
 | MAPK1_1       | MAPK1        | 251 | 364 | 20 | 19 |
-| MAPK3_1       | MAPK1        | 445 | 724 | 85 | 31 |
+| MAPK3_1       | MAPK3        | 445 | 724 | 85 | 31 |
 | MAPK1_MAPK3_1 | MAPK1_MAPK3  | 218 | 112 | 27 | 11 |
 ...
 

@@ -9,4 +9,6 @@
 .venv
 grenv
 GRAPE.egg-info
-build/lib/grape
+*.egg-info/
+build/
+dist/

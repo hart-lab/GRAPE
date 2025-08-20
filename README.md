@@ -69,7 +69,7 @@ The read count file is a **tab-delimited text file** containing raw counts for e
 
 **Example:**
 | gRNA          | GENE         | T0_R1 |T0_R2 |T18_R1|T18_R2|
-| ------------- |:------------:| -----:| ----:| ----:| ----:|
+| ------------- | ------------ | -----:| ----:| ----:| ----:|
 | MAPK1_1       | MAPK1        | 251 | 364 | 20 | 19 |
 | MAPK3_1       | MAPK1        | 445 | 724 | 85 | 31 |
 | MAPK1_MAPK3_1 | MAPK1_MAPK3  | 218 | 112 | 27 | 11 |
@@ -103,10 +103,10 @@ A plain text file with **one gene per line**, listing the target genes to includ
 | `--target-columns`         | Space-separated list of target columns to average    | `None` |
 | `--no-mean-replicates`     | Disable averaging across replicates                  | `False` |
 | `--no-groupby-targets`     | Disable grouping by target gene                      | `False` |
-| `--nonessential-gene-file` | Path to nonessential/reference gene list for mode-centering. If not provided, mode-centering is performed using the full fold-change distribution. | `None` |
+| `--nonessential-gene-file` | Path to nonessential/reference gene list for mode-centering. If not provided, mode-centering is performed using the full fold-change distribution.      | `None` |
 | `--query-gene-file`        | Path to query gene list                              | `None` |
 | `--genepair-del`           | Delimiter for gene pairs                             | `"_"` |
-| `--fit-intercept`          | Fit intercept in regression       |`False`|
-| `--half-window-size`       | Half window size for local variance  |`500`|
+| `--fit-intercept`          | Fit intercept in regression                          |`False`|
+| `--half-window-size`       | Half window size for local variance, If set to 0, a global variance is calculated instead of a local one. The half-window size must NOT exceed the total number of pairwise constructs. |`500`|
 | `--monotone-filter`        | Apply monotonic filter to local std deviations       |`False`|
 

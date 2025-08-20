@@ -39,7 +39,7 @@ pip3 install .
 ```zsh
 grape -h
 ```
-You should see the following:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;You should see the following:
 ```zsh
 usage: grape [-h] [--version] -i INPUT_FILEPATH -o OUTPUT_DIRECTORY -c CONTROL_COLUMNS [CONTROL_COLUMNS ...] -t TARGET_GENE_FILE [-p OUTPUT_PREFIX] [--min-reads MIN_READS] [--pseudocount PSEUDOCOUNT] [--target-columns TARGET_COLUMNS [TARGET_COLUMNS ...]][--no-mean-replicates] [--no-groupby-targets] [--nonessential-gene-file NONESSENTIAL_GENE_FILE] [--query-gene-file QUERY_GENE_FILE] [--genepair-del GENEPAIR_DEL] [--fit-intercept] [--half-window-size HALF_WINDOW_SIZE] [--monotone-filter]
 

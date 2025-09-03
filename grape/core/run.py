@@ -69,13 +69,16 @@ def run(args: Namespace) -> None:
         output[col] = output[col].map(lambda x: sci_format.format(x))
 
     output_path = args.output_directory.rstrip('/') + '/'
-    prefix = '_' + args.output_prefix.rstrip('_') if args.output_prefix else None
+    prefix = f"_{args.output_prefix.rstrip('_')}" if args.output_prefix else ""
     
     output.to_csv(output_path + f'grape_pairs{prefix}.txt', sep='\t')
-    singles.to_csv(output_path + f'grape_singles{prefix}.txt', sep='\t')
+    
+    singles_fmt = singles.copy()
+    singles_fmt = singles_fmt.map(lambda x: float_format(x))
+    singles_fmt.to_csv(output_path + f'grape_singles{prefix}.txt', sep='\t')
     
     modecenter_meanfc_fmt = modecenter_meanfc.copy()
-    modecenter_meanfc_fmt = modecenter_meanfc_fmt.applymap(lambda x: float_format.format(x))
+    modecenter_meanfc_fmt = modecenter_meanfc_fmt.map(lambda x: float_format.format(x))
     modecenter_meanfc_fmt.to_csv(output_path + f"modecenter_meanfc{prefix}.txt", sep="\t")
 
     print(f"[INFO] GRAPE analysis complete. Results saved to {output_path}.")

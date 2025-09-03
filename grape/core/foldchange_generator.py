@@ -90,7 +90,7 @@ def get_mean_foldchange(fc_df: pd.DataFrame, target_columns: Optional[List[str]]
 	else:
 		outcols = [fc_df.columns.values[0], 'meanFC']
 
-	mean_fc_df = pd.DataFrame( index = fc_df.index.values, columns=outcols, data=0.)
+	mean_fc_df = pd.DataFrame(index = fc_df.index.values, columns=outcols, data=0.)
 	mean_fc_df[outcols[0]] = fc_df[outcols[0]]
 
 	if no_mean_replicates:
@@ -105,7 +105,7 @@ def get_mean_foldchange(fc_df: pd.DataFrame, target_columns: Optional[List[str]]
 
 def mode_center(mean_fc_df: pd.DataFrame) -> pd.DataFrame:
 	"""
-	Assumes a polished fold change df where the index is the target gene(s). Normalize fold-change 
+	Assumes a fold change df where the index is the target gene(s). Normalize fold-change 
 	mode to zero across entire distribution.
 	
 	Parameters:
@@ -128,7 +128,7 @@ def mode_center(mean_fc_df: pd.DataFrame) -> pd.DataFrame:
 def mode_center_vs_reference_genes(mean_fc_df: pd.DataFrame, noness_genes: List[str]) \
 	-> pd.DataFrame:
 	"""
-	Assumes a polished fold change df where the index is the target gene(s). Normalize fold-change 
+	Assumes a fold change df where the index is the target gene(s). Normalize fold-change 
 	values using the median of a reference set of non-essential genes.
 	
 	Parameters:

@@ -74,7 +74,7 @@ def run(args: Namespace) -> None:
     output.to_csv(output_path + f'grape_pairs{prefix}.txt', sep='\t')
     
     singles_fmt = singles.copy()
-    singles_fmt = singles_fmt.map(lambda x: float_format(x))
+    singles_fmt = singles_fmt.map(lambda x: float_format.format(x))
     singles_fmt.to_csv(output_path + f'grape_singles{prefix}.txt', sep='\t')
     
     modecenter_meanfc_fmt = modecenter_meanfc.copy()
@@ -82,3 +82,4 @@ def run(args: Namespace) -> None:
     modecenter_meanfc_fmt.to_csv(output_path + f"modecenter_meanfc{prefix}.txt", sep="\t")
 
     print(f"[INFO] GRAPE analysis complete. Results saved to {output_path}.")
+

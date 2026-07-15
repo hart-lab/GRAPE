@@ -11,7 +11,7 @@ from sklearn.linear_model import LinearRegression
 
 
 def make_predictor_matrix(fc_df: pd.DataFrame, target_gene_list: List[str], 
-						  gene_delim: str = '_') -> Tuple[pd.DataFrame, pd.DataFrame]:
+						  genepair_del: str = '_') -> Tuple[pd.DataFrame, pd.DataFrame]:
 	"""
 	Constructs a binary predictor matrix for regression analysis.
     
@@ -20,7 +20,7 @@ def make_predictor_matrix(fc_df: pd.DataFrame, target_gene_list: List[str],
             DataFrame containing fold-change values with index as genes and gene pairs
         target_gene_list : List[str]
             List of target genes to be included in the regression model
-        gene_delim : str
+        genepair_del : str
             Delimiter used to separate gene pairs in index names. Default is "_"
 
     Returns:
@@ -31,10 +31,10 @@ def make_predictor_matrix(fc_df: pd.DataFrame, target_gene_list: List[str],
 	"""
 	predictor_matrix = pd.DataFrame(index=fc_df.index.values, columns=target_gene_list, data=0.)
 	for target_array in fc_df.index.values:
-		if gene_delim in target_array:
+		if genepair_del in target_array:
 			
             # this target is a gene pair
-			target_genes_in_array = target_array.split(gene_delim)
+			target_genes_in_array = target_array.split(genepair_del)
 			if (len(np.intersect1d(target_genes_in_array, target_gene_list)) == \
 	            len(target_genes_in_array)):
 				# both/all genes in the target array are in the genetic interaction gene list. 
@@ -47,20 +47,20 @@ def make_predictor_matrix(fc_df: pd.DataFrame, target_gene_list: List[str],
 				predictor_matrix.loc[target_array, target_array] = 1
 	
 	# Drop rows not targeting a gene in the target list
-	dropme = np.where( predictor_matrix.sum(1)==0 )[0]  
-	predictor_matrix.drop( predictor_matrix.index.values[dropme], axis=0, inplace=True )
+	dropme = np.where(predictor_matrix.sum(1)==0)[0]  
+	predictor_matrix.drop(predictor_matrix.index.values[dropme], axis=0, inplace=True)
 
 	# Drop columns (genes) with no arrays targeting that gene
-	dropme = np.where( predictor_matrix.sum(0)==0 )[0]  
-	predictor_matrix.drop( predictor_matrix.columns.values[dropme], axis=1, inplace=True )
+	dropme = np.where(predictor_matrix.sum(0)==0)[0]  
+	predictor_matrix.drop(predictor_matrix.columns.values[dropme], axis=1, inplace=True)
 
-	obs_vector = fc_df.loc[ predictor_matrix.index.values ]
+	obs_vector = fc_df.loc[predictor_matrix.index.values]
 	print('[INFO] regression matrix rows: {:5d}, cols: {:3d}'.format(predictor_matrix.shape[0], 
 															predictor_matrix.shape[1]))
 	return predictor_matrix, obs_vector
 
 def do_regression(predictor_matrix: pd.DataFrame, obs_vector: pd.DataFrame, 
-				  fit_intercept: bool = False, delimiter: str = '_') -> \
+				  fit_intercept: bool = False, genepair_del: str = '_') -> \
                   Tuple[pd.DataFrame, pd.DataFrame, Dict[str, float]]:
 	"""
     Calculate the regression and provide the initial GI score.
@@ -72,7 +72,7 @@ def do_regression(predictor_matrix: pd.DataFrame, obs_vector: pd.DataFrame,
             Response vector generated from make_predictor_matrix
         fit_intercept : bool
             Whether to fit an intercept in the regression model. Default is False.
-        delimiter : str
+        genepair_del : str
             Delimiter used to separate gene pairs in index names. Default is "_".
 
     Returns:
@@ -98,7 +98,7 @@ def do_regression(predictor_matrix: pd.DataFrame, obs_vector: pd.DataFrame,
 
 	# now for each pair, get g1, g2, dLFC based on observed FC in singles
 	for genepair in pairs.index.values:
-		g1, g2 = genepair.split(delimiter)
+		g1, g2 = genepair.split(genepair_del)
 		g1_fc = singles.loc[g1,'fc_obs']
 		g2_fc = singles.loc[g2,'fc_obs']
 		dLFC = pairs.loc[genepair, 'fc_obs'] - (g1_fc + g2_fc)
